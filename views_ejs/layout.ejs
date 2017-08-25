@@ -1,0 +1,15 @@
+<ul>
+    <%if(user){%>
+    <li><a href='/auth/logout'>Logout</a></li>
+    <h1><%=user.displayName%></h1>
+    <%}else{%>
+    <li><a href='/auth/register'>Register</a></li>
+    <li><a href='/auth/login'>Login</a></li>
+    <%}%>
+</ul>
+<h1><a href='/board'>This is a Simple Web Application</a></h1>
+<ul>
+    <%for(var i = 0 ; i < topics.length ; i++){%>
+    <li><a href='/board/<%= topics[i].id%>'><%=topics[i].title%></a></li>
+    <%}%>
+</ul>

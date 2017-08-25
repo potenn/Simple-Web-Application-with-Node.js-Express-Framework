@@ -1,0 +1,42 @@
+//
+  Created by KimMinki on 2016. 7. 17..
+html
+  head
+    meta(charset='utf-8')
+  body
+    h1 Register
+    form#target(action='/auth/register', method='post')
+      p
+        input#email(type='text', name='username', placeholder='username')
+      p
+        input#passwd(type='password', name='password', placeholder='password')
+      p
+        input#repasswd(type='password', name='repassword', placeholder='repassword')
+      p
+        input(type='submit')
+    script(type='text/javascript').
+        window.onload = isRegisterSuccess(<%= isSuccess%>);
+        function isRegisterSuccess(isSuccess){
+            if(!isSuccess){
+            alert('이미 존재하는 아이디입니다');
+            console.log('찍히냐')
+        }
+        }
+        var t = document.getElementById('target');
+      t.addEventListener('submit',function(event){
+      if(document.getElementById('passwd').value.length === 0 || document.getElementById('email').value.length === 0 || document.getElementById('repasswd').value.length === 0){
+      if(document.getElementById('email').value.length === 0){
+      alert('email 값이 누락 되었습니다');
+      event.preventDefault();
+      }else if(document.getElementById('passwd').value.length === 0){
+      alert('passwd 값이 누락 되었습니다');
+      event.preventDefault();
+      }else if(document.getElementById('repasswd').value.length === 0){
+      alert('repasswd 값이 누락 되었습니다');
+      event.preventDefault();
+      }
+      }else if(document.getElementById('passwd').value !== document.getElementById('repasswd').value){
+      alert('비밀번호 값이 일치하지 않습니다.');
+      event.preventDefault();
+      }
+      });

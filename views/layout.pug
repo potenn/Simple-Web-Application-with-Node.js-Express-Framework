@@ -1,0 +1,38 @@
+html
+  head
+    meta(charset='utf-8')
+
+    script(type='text/javascript').
+        function check() {
+            alert(document.getElementById("username").value);
+            var email = document.getElementById("username").value;
+            var exptext = /^[A-Za-z0-9_\\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+            if (exptext.test(email) == false) {
+                //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
+                alert("이 메일형식이 올바르지 않습니다.");
+                document.addjoin.email.focus();
+                return false;
+            }
+
+        }function test() {
+            console.log('test');
+        }
+
+  body
+    ul#account
+      if user
+        li
+          a(href='/auth/logout') Logout
+      else
+        li
+          a(href='/auth/register') Register
+        li
+          a(href='/auth/login') Login
+    h1
+      a(href='/board') Simple Web Application
+    ul
+      each topic in topics
+        li
+          a(href='/board/'+topic.id)= topic.title
+
+    block content

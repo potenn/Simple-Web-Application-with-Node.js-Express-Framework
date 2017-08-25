@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            
+            $("#register").click(function(){
+                if(checkForm()){
+                    $("#registerForm").submit();
+                }
+            });
+            
+            $("#facebook").click(function () {
+                window.location = "/auth/facebook";
+            });
+
+        });
+        
+        function checkEmail(username) {
+
+            var email = username;
+            var exptext = /^[A-Za-z0-9_\\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+            if (exptext.test(email) == false) {
+                //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
+                alert("This is not email format");
+                document.addjoin.email.focus();
+                return false;
+            }else{
+                return true;
+            }
+        }
+        function checkSpace(strValue){
+            var flag=true;
+            if (strValue!=""){
+                for (var i=0; i < strValue.length; i++){
+                    if (strValue.charAt(i) == " "){
+                        flag=false;
+                        break;
+                    }
+                }
+            }
+            return flag;
+        }
+
+        function checkForm() {
+
+            var email = document.getElementById('email').value;
+            var displayName = document.getElementById('displayName').value;
+            var passwd = document.getElementById('passwd').value;
+            var repasswd = document.getElementById('repasswd').value;
+
+            // space check
+            if (!checkSpace(email) || !checkSpace(displayName) || !checkSpace(passwd) || !checkSpace(repasswd)) {
+                alert('This is not email format');
+                return false;
+            }
+            // email check
+            if (!checkEmail(email)) {
+                alert('This is not email format');
+                return false;
+            }
+            // password check
+            if (passwd !== repasswd) {
+                alert('please check your password and repassword');
+                return false;
+            }
+            return true;
+        }
+        
+        
+        
+    </script>
+</head>
+
+<body>
+<header>
+    <%include ../layout.ejs%>
+</header>
+<form id="registerForm" action="/auth/register" method="post">
+
+    <p><input type="text" id="email" name="username" placeholder="email"></p>
+    <p><input type="text" id="displayName" name="displayName" placeholder="displayName"></p>
+    <p><input type="password" id="passwd" name="password" placeholder="password"></p>
+    <p><input type="password" id="repasswd" name="repassword" placeholder="repassword"></p>
+
+</form>
+    <button id="register">register</button>
+    <button id="facebook">Facebook</button>
+    <!--<a href="/auth/facebook">Facebook</a>-->
+</body>
+</html>
